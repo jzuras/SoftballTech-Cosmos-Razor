@@ -1,0 +1,50 @@
+﻿@page "{organization}/{id}"
+
+@model Sbt.Pages.Admin.Divisions.DetailsModel
+
+@{
+    ViewData["Title"] = "Admin - Division Details";
+}
+
+<h1>Division Details</h1>
+
+<h4>Organization: @Html.Raw(Model.Organization)</h4>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DivisionInfo.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DivisionInfo.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DivisionInfo.League)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DivisionInfo.League)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DivisionInfo.Div)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DivisionInfo.Div)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DivisionInfo.Locked)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DivisionInfo.Locked)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DivisionInfo.Updated)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DivisionInfo.Updated)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.DivisionInfo?.ID" asp-route-organization="@Model.Organization">Edit</a> |
+    <a asp-page="./Index" asp-route-organization="@Model.Organization">Back to List</a>
+</div>

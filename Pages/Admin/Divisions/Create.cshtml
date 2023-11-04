@@ -1,0 +1,41 @@
+﻿@page "{organization}"
+
+@model Sbt.Pages.Admin.Divisions.CreateModel
+
+@{
+    ViewData["Title"] = "Admin - Create Division";
+}
+
+<h1>Create Division</h1>
+
+<h4>Organization: @Html.Raw(Model.Organization)</h4>
+<hr />
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group row mb-3">
+        <label asp-for="DivisionInfo.ID" class="col-3 col-form-label"></label>
+        <input asp-for="DivisionInfo.ID" class="col-3" aria-required="true" />
+        <span asp-validation-for="DivisionInfo.ID" class="text-danger col-6"></span>
+    </div>
+    <div class="form-group row mb-3">
+        <label asp-for="DivisionInfo.League" class="col-3 col-form-label"></label>
+        <input asp-for="DivisionInfo.League" class="col-3" aria-required="true" />
+        <span asp-validation-for="DivisionInfo.League" class="text-danger col-6"></span>
+    </div>
+    <div class="form-group row mb-3">
+        <label asp-for="DivisionInfo.Div" class="col-3 col-form-label"></label>
+        <input asp-for="DivisionInfo.Div" class="col-3" aria-required="true" />
+        <span asp-validation-for="DivisionInfo.Div" class="text-danger col-6"></span>
+    </div>
+    <div class="form-group mb-3">
+        <input type="submit" value="Create" class="btn btn-primary" @((Model.DisableSubmitButton) ? "disabled" : "") />
+    </div>
+</form>
+
+<div>
+    <a asp-page="Index" asp-route-organization="@Model.Organization">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

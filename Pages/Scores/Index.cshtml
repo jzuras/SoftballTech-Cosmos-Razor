@@ -1,0 +1,74 @@
+﻿@page "{organization}/{divisionID}"
+
+@model Sbt.Pages.Scores.IndexModel
+
+@{
+    ViewData["Title"] = Model.Organization + " Report Scores";
+}
+
+<h1>@Model.Organization - Report Scores</h1>
+
+
+<p />
+<input type="hidden" asp-for="Organization" />
+<input type="hidden" asp-for="DivisionID" />
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DivisionID)
+        </dt>
+        <dd class="col-sm-10" id="divisionID">
+            @Html.DisplayFor(model => model.DivisionID)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Schedule[0].Day)
+        </dt>
+        <dd class="col-sm-10" id="day">
+            @{
+                var day = Model.Schedule[0]?.Day;
+                if (day.HasValue)
+                {
+                    @day.Value.ToString("MMM-dd")
+                }
+            }
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Schedule[0].Field)
+        </dt>
+        <dd class="col-sm-10" id="field">
+            @Html.DisplayFor(model => model.Schedule[0].Field)
+        </dd>
+    </dl>
+</div>
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger" id="validationSummary"></div>
+
+    @{
+        var index = 0;
+
+        foreach (var game in Model.Schedule)
+        {
+            await Html.RenderPartialAsync("_ScoreSingle", Model,
+            new ViewDataDictionary(ViewData)
+                {
+                    { "index", index }
+                });
+            index++;
+        }
+    }
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" id="saveButton" />
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

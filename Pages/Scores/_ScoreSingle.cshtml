@@ -1,0 +1,91 @@
+﻿@model Sbt.Pages.Scores.IndexModel
+
+@{
+    var index = @ViewData["index"]!;
+}
+
+<hr align="center" color="red" width="50%">
+
+<h4>Game #@(Convert.ToInt32(index) + 1)</h4>
+
+<input type="hidden" asp-for="Schedule[Convert.ToInt32(index)].Day" />
+<input type="hidden" asp-for="Schedule[Convert.ToInt32(index)].Time" />
+<input type="hidden" asp-for="Schedule[Convert.ToInt32(index)].Field" />
+<input type="hidden" asp-for="Schedule[Convert.ToInt32(index)].Home" />
+<input type="hidden" asp-for="Schedule[Convert.ToInt32(index)].Visitor" />
+
+<input type="hidden" asp-for="ScheduleVM[Convert.ToInt32(index)].GameID" />
+
+<div class="form-group row mb-3">
+    <label asp-for="@Model.Schedule[Convert.ToInt32(index)].Time" class="col-2 col-form-label fw-bold">Time</label>
+    <div class="col-2">
+        <label asp-for="@Model.Schedule[Convert.ToInt32(index)].Time"
+               class="col-form-label">@Html.Raw(Model.Schedule[Convert.ToInt32(index)].Time?.ToString("h:mm tt"))</label>
+    </div>
+</div>
+
+<div class="form-group row mb-3">
+    <label asp-for="@Model.Schedule[Convert.ToInt32(index)].Home" class="col-2 col-form-label fw-bold">Home Team</label>
+    <div class="col-2">
+        <label asp-for="@Model.Schedule[Convert.ToInt32(index)].Home" class="col-form-label">@Model.Schedule[Convert.ToInt32(index)].Home</label>
+    </div>
+    <div class="col-2">
+        <input asp-for="@Model.ScheduleVM[Convert.ToInt32(index)].HomeScore" class="form-control" autofocus aria-required="true" />
+    </div>
+    <div class="col-2 align-self-center">
+        <input class="form-check-input" asp-for="@Model.ScheduleVM[Convert.ToInt32(index)].HomeForfeit" id="chkHome" />
+        <label for="chkHome">Home Forfeit</label>
+    </div>
+    <div class="col-4">
+        <span asp-validation-for="@Model.ScheduleVM[Convert.ToInt32(index)].HomeScore" class="text-danger" id="vldHomeScore"></span>
+    </div>
+</div>
+
+<div class="form-group row mb-3">
+    <label asp-for="@Model.Schedule[Convert.ToInt32(index)].Visitor" class="col-2 col-form-label fw-bold">Visiting Team</label>
+    <div class="col-2">
+        <label asp-for="@Model.Schedule[Convert.ToInt32(index)].Visitor" class="col-form-label">@Model.Schedule[Convert.ToInt32(index)].Visitor</label>
+    </div>
+    <div class="col-2">
+        <input asp-for="@Model.ScheduleVM[Convert.ToInt32(index)].VisitorScore" class="form-control" aria-required="true" />
+    </div>
+    <div class="col-2 align-self-center">
+        <input class="form-check-input" asp-for="@Model.ScheduleVM[Convert.ToInt32(index)].VisitorForfeit" id="chkVisitor" />
+        <label for="chkVisitor">Visitor Forfeit</label>
+    </div>
+    <div class="col-4">
+        <span asp-validation-for="@Model.ScheduleVM[Convert.ToInt32(index)].VisitorScore" class="text-danger" id="vldVisitorScore"></span>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("partial view loaded")
+        console.log("input name: chkVisitor" + @ViewData["index"])
+        console.log($("input[name='ScheduleVM[" + @ViewData["index"] + "].HomeForfeit']").length > 0);
+        $("input[name='ScheduleVM[" + @ViewData["index"] + "].VisitorForfeit']").click(function () {
+            if ($(this).is(":checked")) {
+                document.querySelector("span[data-valmsg-for='ScheduleVM[" + @ViewData["index"] + "].VisitorScore']").textContent = "";
+                document.querySelector("span[data-valmsg-for='ScheduleVM[" + @ViewData["index"] + "].HomeScore']").textContent = "";
+                $("input[name='ScheduleVM[" + @ViewData["index"] + "].VisitorScore']").val(0);
+                $("input[name='ScheduleVM[" + @ViewData["index"] + "].HomeScore']").val(7);
+                if ($("input[name='ScheduleVM[" + @ViewData["index"] + "].HomeForfeit']").is(":checked")) {
+                    $("input[name='ScheduleVM[" + @ViewData["index"] + "].HomeScore']").val(0);
+                }
+            }
+        });
+
+        $("input[name='ScheduleVM[" + @ViewData["index"] + "].HomeForfeit']").click(function () {
+            if ($(this).is(":checked")) {
+                document.querySelector("span[data-valmsg-for='ScheduleVM[" + @ViewData["index"] + "].VisitorScore']").textContent = "";
+                document.querySelector("span[data-valmsg-for='ScheduleVM[" + @ViewData["index"] + "].HomeScore']").textContent = "";
+                $("input[name='ScheduleVM[" + @ViewData["index"] + "].VisitorScore']").val(7);
+                $("input[name='ScheduleVM[" + @ViewData["index"] + "].HomeScore']").val(0);
+                if ($("input[name='ScheduleVM[" + @ViewData["index"] + "].VisitorForfeit']").is(":checked")) {
+                    $("input[name='ScheduleVM[" + @ViewData["index"] + "].VisitorScore']").val(0);
+                }
+            }
+        });
+    });
+</script>
