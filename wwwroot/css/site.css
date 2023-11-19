@@ -21,3 +21,9 @@ body {
   margin-bottom: 60px;
 }
 
+.grid-container-load-schedule {
+    display: grid;
+    grid-template-columns: 2fr 1fr 5fr;
+    gap: 2vh;
+    grid-gap: 2vh;
+}
