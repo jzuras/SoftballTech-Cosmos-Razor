@@ -23,7 +23,36 @@ body {
 
 .grid-container-load-schedule {
     display: grid;
-    grid-template-columns: 2fr 1fr 5fr;
+    grid-template-columns: 1fr 1fr 5fr;
     gap: 2vh;
     grid-gap: 2vh;
+}
+
+@media (max-width: 480px) {
+    .grid-container-load-schedule {
+        grid-template-columns: 1fr;
+        /* if using 2 columns, need the commented out code blocks below,
+            plus more blocks - one for each child of the container
+        grid-template-columns: 1fr 1fr; */
+    }
+
+    /* Reset row and column placement for all children */
+/*    .grid-container-load-schedule > * 
+    {
+        grid-row: auto;
+        grid-column: auto;
+    }
+*/
+    /* Explicitly set grid-row for specific items to control placement */
+    /*.grid-container-load-schedule > :nth-child(3) 
+    {
+        grid-row: 2;*/ /* Move the 3rd child to the second row */
+    /*}*/
+
+    /* Start a new row after the 3rd child */
+    /*.grid-container-load-schedule > :nth-child(4) 
+    {
+        grid-column: 1;
+        grid-row: 3;*/ /* Start a new row for the 4th child */
+    /*}*/
 }
