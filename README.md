@@ -6,6 +6,6 @@ After creating a mini-version of my old SoftballTech website using Razor Pages w
 
 Most of the changes in this version are due to the data model now consisting of JSON documents instead of relational tables. I also decided to create a Data Access Layer, moving the database code from the Razor Pages to a centralized service.
 
-This version is also running on Azure, and can be found [here](https://sbt-cosmos.azurewebsites.net/).
+This version is also running on Azure; contact me via LinkedIn for more info.
 
 The LinkedIn discussion post is [here](https://www.linkedin.com/feed/update/urn:li:activity:7127341142521577474/).
